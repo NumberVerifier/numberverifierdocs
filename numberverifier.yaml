@@ -13,7 +13,7 @@ security:
     - ApiKey: []
 paths:
     /api/getnumbers:
-      post: 
+      post:
         tags: [Numbers]
         summary: Get numbers for campaign
         requestBody:
@@ -25,12 +25,12 @@ paths:
                 required:
                   - campaignId
                 properties:
-                  campaignId: 
+                  campaignId:
                     type: string
                     description: Unique ID of campaign
                     format: uuid
         responses:
-                200: 
+                200:
                   description: Success
                   content:
                     application/json:
@@ -58,16 +58,16 @@ paths:
                               description: Optional name of the number
                               example: Test number
                             createdAt:
-                              type: string                      
+                              type: string
                               description: The date and time number was created
                               example: "1985-04-12T23:20:50.52Z"
                               format: date
                 400:
                     $ref: "#/components/responses/400"
                 500:
-                    $ref: "#/components/responses/500"                          
+                    $ref: "#/components/responses/500"
     /api/addcampaign:
-      post: 
+      post:
         tags: [Account]
         summary: Add campaign to account
         requestBody:
@@ -79,17 +79,17 @@ paths:
                 required:
                   - name
                 properties:
-                  name: 
+                  id:
                     type: string
-                    description: Name of campaign
-                    example: "Test Campaign"
+                    description: Campaign ID
+                    example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
         responses:
-                200: 
+                200:
                   $ref: "#/components/responses/200"
                 400:
                     $ref: "#/components/responses/400"
                 500:
-                    $ref: "#/components/responses/500"        
+                    $ref: "#/components/responses/500"
     /api/credits:
         post:
             tags: [Account]
@@ -167,21 +167,21 @@ paths:
                                     example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
                                 numbers:
                                     type: array
-                                    items: 
+                                    items:
                                       type: object
                                       required:
                                         - number
-                                      properties: 
-                                        number: 
+                                      properties:
+                                        number:
                                           type: string
-                                          description: Phone number to add 
+                                          description: Phone number to add
                                           example: +12130001234
                                         name:
                                           type: string
                                           description: Optional name to add
                                           example: Callcenter 1
-                                        
-                                    
+
+
             responses:
                 200:
                     $ref: "#/components/responses/200"
@@ -225,7 +225,7 @@ components:
                       properties:
                           status:
                               type: string
-                              description: success        
+                              description: success
                               example: success
         400:
             description: Invalid or missing API key
