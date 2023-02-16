@@ -1,252 +1,306 @@
 openapi: "3.0.0"
 info:
-    version: "1.0"
-    title: "Number Verifier User API"
-    description: Lets machines talk together
-    termsOfService: https://www.numberverifier.com/terms
-    contact:
-        email: support@numberverifier.com
+  version: "1.0"
+  title: "Number Verifier User API"
+  description: Lets machines talk together
+  termsOfService: https://www.numberverifier.com/terms
+  contact:
+    email: support@numberverifier.com
 servers:
-    - url: https://api.numberverifier.com
-      description: Production API Server
+  - url: https://api.numberverifier.com
+    description: Production API Server
 security:
-    - ApiKey: []
+  - ApiKey: []
 paths:
-    /api/getnumbers:
-      post:
-        tags: [Numbers]
-        summary: Get numbers for campaign
-        requestBody:
-          required: true
+  /api/screenshoturls:
+    post:
+      tags: [Numbers]
+      summary: Get signed screenshot urls good for 15 minutes
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Unique ID of Number
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  format: uuid
+              required:
+                - id
+      responses:
+        200:
+          description: List of the last screenshot signed urls
           content:
-            "application/json":
+            application/json:
               schema:
-                type: object
-                required:
-                  - campaignId
-                properties:
-                  campaignId:
-                    type: string
-                    description: Unique ID of campaign
-                    format: uuid
-        responses:
-                200:
-                  description: Success
-                  content:
-                    application/json:
-                      schema:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: string
-                              description: Unique ID of Number
-                              example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
-                              format: uuid
-                            number:
-                              type: string
-                              description: Actual phone number
-                              example: +122233334444
-                              format: phone
-                            active:
-                              type: boolean
-                              description: Active flag for the number
-                              example: true
-                            name:
-                              type: string
-                              description: Optional name of the number
-                              example: Test number
-                            createdAt:
-                              type: string
-                              description: The date and time number was created
-                              example: "1985-04-12T23:20:50.52Z"
-                              format: date
-                400:
-                    $ref: "#/components/responses/400"
-                500:
-                    $ref: "#/components/responses/500"
-    /api/addcampaign:
-      post:
-        tags: [Account]
-        summary: Add campaign to account
-        requestBody:
-          required: true
-          content:
-            "application/json":
-              schema:
-                type: object
-                required:
-                  - name
-                properties:
-                  id:
-                    type: string
-                    description: Campaign ID
-                    example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
-        responses:
-                200:
-                  $ref: "#/components/responses/200"
-                400:
-                    $ref: "#/components/responses/400"
-                500:
-                    $ref: "#/components/responses/500"
-    /api/credits:
-        post:
-            tags: [Account]
-            summary: Get current credits
-            responses:
-                200:
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    id:
-                                        type: string
-                                        description: Unique ID for account
-                                        format: uuid
-                                        example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
-                                    credits:
-                                        type: number
-                                        description: Number of credits available on account
-                                        format: int32
-                                        example: 1000
-                400:
-                    $ref: "#/components/responses/400"
-                500:
-                    $ref: "#/components/responses/500"
-    /api/getcampaigns:
-        post:
-            tags: [Account]
-            summary: Get campaigns
-            responses:
-                200:
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    type: object
-                                    properties:
-                                        id:
-                                            type: string
-                                            description: Campaign ID
-                                            format: uuid
-                                            example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
-                                        active:
-                                            type: boolean
-                                            description: Status of campaign
-                                        name:
-                                            type: string
-                                            description: Campaign name
-                                            example: Test Campaign
-                400:
-                    $ref: "#/components/responses/400"
-                500:
-                    $ref: "#/components/responses/500"
-    /api/addnumbers:
-        post:
-            tags: [Numbers]
-            summary: Add numbers to campaign
-            requestBody:
-                required: true
-                content:
-                    "application/json":
-                        schema:
-                            type: object
-                            required:
-                             - campaignId
-                             - numbers
-                            properties:
-                                campaignId:
-                                    type: string
-                                    description: Campaign ID
-                                    format: uuid
-                                    example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
-                                numbers:
-                                    type: array
-                                    items:
-                                      type: object
-                                      required:
-                                        - number
-                                      properties:
-                                        number:
-                                          type: string
-                                          description: Phone number to add
-                                          example: +12130001234
-                                        name:
-                                          type: string
-                                          description: Optional name to add
-                                          example: Callcenter 1
-
-
-            responses:
-                200:
-                    $ref: "#/components/responses/200"
-                400:
-                    $ref: "#/components/responses/400"
-                500:
-                    $ref: "#/components/responses/500"
-    /api/removenumbers:
-        post:
-            tags: [Numbers]
-            summary: Remove numbers from campaign
-            requestBody:
-                required: true
-                content:
-                    "application/json":
-                        schema:
-                            type: object
-                            properties:
-                                numbersIds:
-                                    type: array
-                                    items:
-                                        type: string
-                                        description: Number ID
-                                        format: uuid
-                                        example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
-            responses:
-                200:
-                    $ref: "#/components/responses/200"
-                400:
-                    $ref: "#/components/responses/400"
-                500:
-                    $ref: "#/components/responses/500"
-components:
-    responses:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique ID of Screenshot
+                      example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                      format: uuid
+                    carrier:
+                      type: string
+                      description: Phone carrier
+                      example: AT&T
+                    device:
+                      type: string
+                      description: Type of device
+                      example: android
+                    signedurl:
+                      type: string
+                      description: Signed url good for 15 minutes
+                      example: https://xxxx/att.png?amzid=xxxx
+                    createdAt:
+                      type: string
+                      description: The date and time the screenshot was taken was created
+                      example: "1985-04-12T23:20:50.52Z"
+                      format: date
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/getnumbers:
+    post:
+      tags: [Numbers]
+      summary: Get numbers for campaign
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              required:
+                - campaignId
+              properties:
+                campaignId:
+                  type: string
+                  description: Unique ID of campaign
+                  format: uuid
+      responses:
         200:
           description: Success
           content:
-              application/json:
-                  schema:
-                      type: object
-                      properties:
-                          status:
-                              type: string
-                              description: success
-                              example: success
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique ID of Number
+                      example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                      format: uuid
+                    number:
+                      type: string
+                      description: Actual phone number
+                      example: +122233334444
+                      format: phone
+                    active:
+                      type: boolean
+                      description: Active flag for the number
+                      example: true
+                    name:
+                      type: string
+                      description: Optional name of the number
+                      example: Test number
+                    createdAt:
+                      type: string
+                      description: The date and time number was created
+                      example: "1985-04-12T23:20:50.52Z"
+                      format: date
         400:
-            description: Invalid or missing API key
-            content:
-                "text/text":
-                    schema:
-                        type: string
-                        description: Describes the error
-                        example: Bad key
+          $ref: "#/components/responses/400"
         500:
-            description: Unexpected error
-            content:
-                "text/text":
-                    schema:
+          $ref: "#/components/responses/500"
+  /api/addcampaign:
+    post:
+      tags: [Account]
+      summary: Add campaign to account
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                id:
+                  type: string
+                  description: Campaign ID
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/credits:
+    post:
+      tags: [Account]
+      summary: Get current credits
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique ID for account
+                    format: uuid
+                    example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  credits:
+                    type: number
+                    description: Number of credits available on account
+                    format: int32
+                    example: 1000
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/getcampaigns:
+    post:
+      tags: [Account]
+      summary: Get campaigns
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Campaign ID
+                      format: uuid
+                      example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                    active:
+                      type: boolean
+                      description: Status of campaign
+                    name:
+                      type: string
+                      description: Campaign name
+                      example: Test Campaign
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/addnumbers:
+    post:
+      tags: [Numbers]
+      summary: Add numbers to campaign
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              required:
+                - campaignId
+                - numbers
+              properties:
+                campaignId:
+                  type: string
+                  description: Campaign ID
+                  format: uuid
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                numbers:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - number
+                    properties:
+                      number:
                         type: string
-                        description: Describes the error
-                        example: Request failed
+                        description: Phone number to add
+                        example: +12130001234
+                      name:
+                        type: string
+                        description: Optional name to add
+                        example: Callcenter 1
 
-    securitySchemes:
-        ApiKey:
-            type: apiKey
-            in: header
-            name: x-apikey
+
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/removenumbers:
+    post:
+      tags: [Numbers]
+      summary: Remove numbers from campaign
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                numbersIds:
+                  type: array
+                  items:
+                    type: string
+                    description: Number ID
+                    format: uuid
+                    example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+components:
+  responses:
+    200:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: success
+                example: success
+    400:
+      description: Invalid or missing API key
+      content:
+        "text/text":
+          schema:
+            type: string
+            description: Describes the error
+            example: Bad key
+    500:
+      description: Unexpected error
+      content:
+        "text/text":
+          schema:
+            type: string
+            description: Describes the error
+            example: Request failed
+
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: x-apikey
 
