@@ -139,7 +139,17 @@ paths:
                   example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
       responses:
         200:
-          $ref: "#/components/responses/200"
+          description: Campaign ID that was created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique ID of Campaign
+                    example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                    format: uuid
         400:
           $ref: "#/components/responses/400"
         500:
