@@ -9,6 +9,8 @@ info:
 servers:
   - url: https://api.numberverifier.com
     description: Production API Server
+  - url: http://localhost:3000
+    description: Development API Server
 security:
   - ApiKey: []
 paths:
@@ -116,6 +118,10 @@ paths:
                       description: The date and time number was created
                       example: "1985-04-12T23:20:50.52Z"
                       format: date
+                    metaData:
+                      type: string
+                      description: Optional metadata that will be included in the webhook
+                      example: '{id: 1}'
         400:
           $ref: "#/components/responses/400"
         500:
@@ -244,11 +250,37 @@ paths:
                         type: string
                         description: Optional name to add
                         example: Callcenter 1
-
+                      metaData:
+                        type: string
+                        description: Optional metadata that will be included in the webhook
+                        example: '{id: 1}'
 
       responses:
         200:
-          $ref: "#/components/responses/200"
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numbers:
+                    type: array
+                    description: Response add numbers
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                        number:
+                          type: string
+                          description: Number requested
+                          example: 2132130000
+                        error:
+                          type: string
+                          description: Optional error message, this means the number was not added
+                          example: Duplicate number
         400:
           $ref: "#/components/responses/400"
         500:
