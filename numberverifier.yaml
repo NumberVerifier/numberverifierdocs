@@ -139,7 +139,7 @@ paths:
               required:
                 - name
               properties:
-                id:
+                name:
                   type: string
                   description: Campaign ID
                   example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
