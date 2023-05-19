@@ -220,6 +220,7 @@ paths:
     post:
       tags: [Numbers]
       summary: Add numbers to campaign
+      description: Add numbers to your campaign (max 20k per request)
       requestBody:
         required: true
         content:
@@ -289,6 +290,7 @@ paths:
     post:
       tags: [Numbers]
       summary: Remove numbers from campaign
+      description: Remove numbers from your campaign (max 20k per request)
       requestBody:
         required: true
         content:
