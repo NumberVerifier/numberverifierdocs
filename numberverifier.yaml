@@ -66,8 +66,6 @@ paths:
                       format: date
         400:
           $ref: "#/components/responses/400"
-        402:
-          $ref: "#/components/responses/402"
         500:
           $ref: "#/components/responses/500"
   /api/getnumbers:
@@ -105,7 +103,7 @@ paths:
                     number:
                       type: string
                       description: Actual phone number
-                      example: 2132130000
+                      example: +122233334444
                       format: phone
                     active:
                       type: boolean
@@ -126,8 +124,6 @@ paths:
                       example: '{id: 1}'
         400:
           $ref: "#/components/responses/400"
-        402:
-          $ref: "#/components/responses/402"
         500:
           $ref: "#/components/responses/500"
   /api/addcampaign:
@@ -145,11 +141,11 @@ paths:
               properties:
                 name:
                   type: string
-                  description: Campaign ID
-                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  description: Campaign Name
+                  example: Vicidial
       responses:
         200:
-          description: Campaign ID that was created
+          description: ID of the campaign created
           content:
             application/json:
               schema:
@@ -162,8 +158,156 @@ paths:
                     format: uuid
         400:
           $ref: "#/components/responses/400"
-        402:
-          $ref: "#/components/responses/402"
+        500:
+          $ref: "#/components/responses/500"
+  /api/deactivatecampaign:
+    post:
+      tags: [Enterprise Plan Only]
+      summary: Deactivate a campaign
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  description: Campaign ID
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  format: uuid
+      responses:
+        200:
+          description: Status message, success if no errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/reactivatecampaign:
+    post:
+      tags: [Enterprise Plan Only]
+      summary: Reactivate a campaign
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  description: Campaign ID
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  format: uuid
+      responses:
+        200:
+          description: Status message, success if no errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/movenumbers:
+    post:
+      tags: [Enterprise Plan Only]
+      summary: Move a number to another campaign
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  description: Destination Campaign ID
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  format: uuid
+                cids:
+                  type: array
+                  description: Array of IDs of the numbers
+                  items:
+                    type: string
+                    example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                    format: uuid
+      responses:
+        200:
+          description: Status message, success if no errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  /api/reactivatenumbers:
+    post:
+      tags: [Enterprise Plan Only]
+      summary: Reactivate numbers
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                cids:
+                  type: array
+                  description: Array of IDs of the numbers
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                        format: uuid
+                      metaData:
+                        type: string
+                        description: Optional metadata that will be included in the webhook
+                        example: '{id: 1}'
+
+
+      responses:
+        200:
+          description: Status message, success if no errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+        400:
+          $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
   /api/credits:
@@ -190,8 +334,6 @@ paths:
                     example: 1000
         400:
           $ref: "#/components/responses/400"
-        402:
-          $ref: "#/components/responses/402"
         500:
           $ref: "#/components/responses/500"
   /api/getcampaigns:
@@ -222,8 +364,6 @@ paths:
                       example: Test Campaign
         400:
           $ref: "#/components/responses/400"
-        402:
-          $ref: "#/components/responses/402"
         500:
           $ref: "#/components/responses/500"
   /api/addnumbers:
@@ -256,7 +396,7 @@ paths:
                       number:
                         type: string
                         description: Phone number to add
-                        example: 2132130000
+                        example: +12130001234
                       name:
                         type: string
                         description: Optional name to add
@@ -294,8 +434,6 @@ paths:
                           example: Duplicate number
         400:
           $ref: "#/components/responses/400"
-        402:
-          $ref: "#/components/responses/402"
         500:
           $ref: "#/components/responses/500"
   /api/removenumbers:
@@ -322,8 +460,6 @@ paths:
           $ref: "#/components/responses/200"
         400:
           $ref: "#/components/responses/400"
-        402:
-          $ref: "#/components/responses/402"
         500:
           $ref: "#/components/responses/500"
 components:
@@ -347,14 +483,6 @@ components:
             type: string
             description: Describes the error
             example: Bad key
-    402:
-      description: Payment Required
-      content:
-        "text/text":
-          schema:
-            type: string
-            description: Describes the error
-            example: please add credits to your account
     500:
       description: Unexpected error
       content:
