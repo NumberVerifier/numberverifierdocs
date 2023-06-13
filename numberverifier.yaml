@@ -171,9 +171,9 @@ paths:
             schema:
               type: object
               required:
-                - id
+                - campid
               properties:
-                id:
+                campid:
                   type: string
                   description: Campaign ID
                   example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
@@ -204,9 +204,9 @@ paths:
             schema:
               type: object
               required:
-                - id
+                - campid
               properties:
-                id:
+                campid:
                   type: string
                   description: Campaign ID
                   example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
@@ -237,11 +237,18 @@ paths:
             schema:
               type: object
               required:
-                - id
+                - srcCampId
+                - destCampId
+                - cids
               properties:
-                id:
+                srcCampId:
                   type: string
-                  description: Destination Campaign ID
+                  description: Campaign ID
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  format: uuid
+                destCampId:
+                  type: string
+                  description: Campaign ID
                   example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
                   format: uuid
                 cids:
@@ -277,8 +284,14 @@ paths:
             schema:
               type: object
               required:
-                - id
+                - campid
+                - cids
               properties:
+                campid:
+                  type: string
+                  description: Campaign ID
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  format: uuid
                 cids:
                   type: array
                   description: Array of IDs of the numbers
