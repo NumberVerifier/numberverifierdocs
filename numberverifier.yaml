@@ -446,9 +446,44 @@ paths:
                           description: Optional error message, this means the number was not added
                           example: Duplicate number
         400:
-          $ref: "#/components/responses/400"
+          description: Invalid or missing API key
+          content:
+            "application/json":
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/addInvalid'
+                  - $ref: '#/components/schemas/addDuplicate'
+                  - $ref: '#/components/schemas/addGeneric'
+              examples:
+                addInvalid:
+                  summary: Invalid phone numbers, nothing added
+                  value:
+                    status: "invalid numbers"
+                    invalid:
+                      - "213213000"
+                addDuplicate:
+                  summary: Duplicate number found, nothing added
+                  value:
+                    status: "duplicate numbers"
+                    duplicate:
+                      - "2132133000"
+                addGeneric:
+                  summary: Error message
+                  value:
+                    status: "missing numbers"
+
         500:
-          $ref: "#/components/responses/500"
+          description: Unexpected error
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                description: Describes the error
+                example:
+                  status: "request failed"
   /api/removenumbers:
     post:
       tags: [Numbers]
@@ -472,10 +507,45 @@ paths:
         200:
           $ref: "#/components/responses/200"
         400:
-          $ref: "#/components/responses/400"
+          description: Invalid or missing API key
+          content:
+            "application/json":
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/addGeneric'
+              examples:
+                addGeneric:
+                  summary: Error message
+                  value:
+                    status: "missing numbers"
         500:
           $ref: "#/components/responses/500"
 components:
+  schemas:
+    addGeneric:
+      type: object
+      properties:
+        status:
+          type: string
+    addInvalid:
+      type: object
+      properties:
+        status:
+          type: string
+        invalid:
+          type: array
+          items:
+            type: string
+    addDuplicate:
+      type: object
+      properties:
+        status:
+          type: string
+        duplicate:
+          type: array
+          items:
+            type: string
+
   responses:
     200:
       description: Success
