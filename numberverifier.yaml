@@ -103,7 +103,7 @@ paths:
                     number:
                       type: string
                       description: Actual phone number
-                      example: +122233334444
+                      example: "22233334444"
                       format: phone
                     active:
                       type: boolean
@@ -413,7 +413,7 @@ paths:
                       number:
                         type: string
                         description: Phone number to add
-                        example: "+12130001234"
+                        example: "2130001234"
                       name:
                         type: string
                         description: Optional name to add
