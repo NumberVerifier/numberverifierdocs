@@ -394,11 +394,15 @@ paths:
                 - campaignId
                 - numbers
               properties:
+                force:
+                  type: boolean
+                  description: add any numbers that it can, default false
+                  example: false
                 campaignId:
                   type: string
                   description: Campaign ID
                   format: uuid
-                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                  example: "bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e"
                 numbers:
                   type: array
                   items:
@@ -409,11 +413,11 @@ paths:
                       number:
                         type: string
                         description: Phone number to add
-                        example: +12130001234
+                        example: "+12130001234"
                       name:
                         type: string
                         description: Optional name to add
-                        example: Callcenter 1
+                        example: "Callcenter 1"
                       metaData:
                         type: string
                         description: Optional metadata that will be included in the webhook
