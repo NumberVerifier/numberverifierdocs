@@ -1,7 +1,7 @@
-openapi: "3.0.0"
+openapi: 3.0.0
 info:
-  version: "1.0"
-  title: "Number Verifier User API"
+  version: '1.0'
+  title: Number Verifier User API
   description: Lets machines talk together
   termsOfService: https://www.numberverifier.com/terms
   contact:
@@ -16,12 +16,13 @@ security:
 paths:
   /api/screenshoturls:
     post:
-      tags: [Numbers]
+      tags:
+        - Numbers
       summary: Get signed screenshot urls good for 15 minutes
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               properties:
@@ -33,7 +34,7 @@ paths:
               required:
                 - id
       responses:
-        200:
+        '200':
           description: List of the last screenshot signed urls
           content:
             application/json:
@@ -62,20 +63,21 @@ paths:
                     createdAt:
                       type: string
                       description: The date and time the screenshot was taken was created
-                      example: "1985-04-12T23:20:50.52Z"
+                      example: '1985-04-12T23:20:50.52Z'
                       format: date
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/getnumbers:
     post:
-      tags: [Numbers]
+      tags:
+        - Numbers
       summary: Get numbers for campaign
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               required:
@@ -86,7 +88,7 @@ paths:
                   description: Unique ID of campaign
                   format: uuid
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -103,7 +105,7 @@ paths:
                     number:
                       type: string
                       description: Actual phone number
-                      example: "22233334444"
+                      example: 122233334444
                       format: phone
                     active:
                       type: boolean
@@ -116,24 +118,25 @@ paths:
                     createdAt:
                       type: string
                       description: The date and time number was created
-                      example: "1985-04-12T23:20:50.52Z"
+                      example: '1985-04-12T23:20:50.52Z'
                       format: date
                     metaData:
                       type: string
                       description: Optional metadata that will be included in the webhook
                       example: '{id: 1}'
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/addcampaign:
     post:
-      tags: [Account]
+      tags:
+        - Account
       summary: Add campaign to account
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               required:
@@ -144,7 +147,7 @@ paths:
                   description: Campaign Name
                   example: Vicidial
       responses:
-        200:
+        '200':
           description: ID of the campaign created
           content:
             application/json:
@@ -156,18 +159,19 @@ paths:
                     description: Unique ID of Campaign
                     example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
                     format: uuid
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/deactivatecampaign:
     post:
-      tags: [Enterprise Plan Only]
+      tags:
+        - Enterprise Plan Only
       summary: Deactivate a campaign
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               required:
@@ -179,7 +183,7 @@ paths:
                   example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
                   format: uuid
       responses:
-        200:
+        '200':
           description: Status message, success if no errors
           content:
             application/json:
@@ -189,18 +193,19 @@ paths:
                   status:
                     type: string
                     example: success
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/reactivatecampaign:
     post:
-      tags: [Enterprise Plan Only]
+      tags:
+        - Enterprise Plan Only
       summary: Reactivate a campaign
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               required:
@@ -212,7 +217,7 @@ paths:
                   example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
                   format: uuid
       responses:
-        200:
+        '200':
           description: Status message, success if no errors
           content:
             application/json:
@@ -222,18 +227,19 @@ paths:
                   status:
                     type: string
                     example: success
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/movenumbers:
     post:
-      tags: [Enterprise Plan Only]
+      tags:
+        - Enterprise Plan Only
       summary: Move a number to another campaign
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               required:
@@ -259,7 +265,7 @@ paths:
                     example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
                     format: uuid
       responses:
-        200:
+        '200':
           description: Status message, success if no errors
           content:
             application/json:
@@ -269,18 +275,19 @@ paths:
                   status:
                     type: string
                     example: success
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/reactivatenumbers:
     post:
-      tags: [Enterprise Plan Only]
+      tags:
+        - Enterprise Plan Only
       summary: Reactivate numbers
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               required:
@@ -306,10 +313,8 @@ paths:
                         type: string
                         description: Optional metadata that will be included in the webhook
                         example: '{id: 1}'
-
-
       responses:
-        200:
+        '200':
           description: Status message, success if no errors
           content:
             application/json:
@@ -319,16 +324,17 @@ paths:
                   status:
                     type: string
                     example: success
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/credits:
     post:
-      tags: [Account]
+      tags:
+        - Account
       summary: Get current credits
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -345,16 +351,17 @@ paths:
                     description: Number of credits available on account
                     format: int32
                     example: 1000
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/getcampaigns:
     post:
-      tags: [Account]
+      tags:
+        - Account
       summary: Get campaigns
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -375,19 +382,25 @@ paths:
                       type: string
                       description: Campaign name
                       example: Test Campaign
-        400:
-          $ref: "#/components/responses/400"
-        500:
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/addnumbers:
     post:
-      tags: [Numbers]
+      tags:
+        - Numbers
       summary: Add numbers to campaign
-      description: Add numbers to your campaign (max 20k per request)
+      description: |
+        Add numbers to your campaign (max 20k per request)
+        
+        It will not add any records if there are duplicates or invalid phone numbers, unless force = true then it will try to add whatever it can and return arrays for invalid and duplicate.
+        
+        Invalid could me an invalid phone number format or that there is no carrier route for the number.
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               required:
@@ -402,7 +415,7 @@ paths:
                   type: string
                   description: Campaign ID
                   format: uuid
-                  example: "bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e"
+                  example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
                 numbers:
                   type: array
                   items:
@@ -413,18 +426,17 @@ paths:
                       number:
                         type: string
                         description: Phone number to add
-                        example: "2130001234"
+                        example: '+12130001234'
                       name:
                         type: string
                         description: Optional name to add
-                        example: "Callcenter 1"
+                        example: Callcenter 1
                       metaData:
                         type: string
                         description: Optional metadata that will be included in the webhook
                         example: '{id: 1}'
-
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -447,12 +459,14 @@ paths:
                           example: 2132130000
                         error:
                           type: string
-                          description: Optional error message, this means the number was not added
+                          description: >-
+                            Optional error message, this means the number was
+                            not added
                           example: Duplicate number
-        400:
+        '400':
           description: Invalid or missing API key
           content:
-            "application/json":
+            application/json:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/addInvalid'
@@ -462,24 +476,23 @@ paths:
                 addInvalid:
                   summary: Invalid phone numbers, nothing added
                   value:
-                    status: "invalid numbers"
+                    status: invalid numbers
                     invalid:
-                      - "213213000"
+                      - '213213000'
                 addDuplicate:
                   summary: Duplicate number found, nothing added
                   value:
-                    status: "duplicate numbers"
+                    status: duplicate numbers
                     duplicate:
-                      - "2132133000"
+                      - '2132133000'
                 addGeneric:
                   summary: Error message
                   value:
-                    status: "missing numbers"
-
-        500:
+                    status: missing numbers
+        '500':
           description: Unexpected error
           content:
-            "application/json":
+            application/json:
               schema:
                 type: object
                 properties:
@@ -487,16 +500,17 @@ paths:
                     type: string
                 description: Describes the error
                 example:
-                  status: "request failed"
+                  status: request failed
   /api/removenumbers:
     post:
-      tags: [Numbers]
+      tags:
+        - Numbers
       summary: Remove numbers from campaign
       description: Remove numbers from your campaign (max 20k per request)
       requestBody:
         required: true
         content:
-          "application/json":
+          application/json:
             schema:
               type: object
               properties:
@@ -508,12 +522,12 @@ paths:
                     format: uuid
                     example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
       responses:
-        200:
-          $ref: "#/components/responses/200"
-        400:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
           description: Invalid or missing API key
           content:
-            "application/json":
+            application/json:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/addGeneric'
@@ -521,9 +535,9 @@ paths:
                 addGeneric:
                   summary: Error message
                   value:
-                    status: "missing numbers"
-        500:
-          $ref: "#/components/responses/500"
+                    status: missing numbers
+        '500':
+          $ref: '#/components/responses/500'
 components:
   schemas:
     addGeneric:
@@ -549,9 +563,8 @@ components:
           type: array
           items:
             type: string
-
   responses:
-    200:
+    '200':
       description: Success
       content:
         application/json:
@@ -562,26 +575,24 @@ components:
                 type: string
                 description: success
                 example: success
-    400:
+    '400':
       description: Invalid or missing API key
       content:
-        "text/text":
+        text/text:
           schema:
             type: string
             description: Describes the error
             example: Bad key
-    500:
+    '500':
       description: Unexpected error
       content:
-        "text/text":
+        text/text:
           schema:
             type: string
             description: Describes the error
             example: Request failed
-
   securitySchemes:
     ApiKey:
       type: apiKey
       in: header
       name: x-apikey
-
