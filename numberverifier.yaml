@@ -197,6 +197,60 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
+  /api/rnd:
+    post:
+      tags:
+        - Enterprise or Monthly Billing Only
+      summary: Lookup Reassigned Database
+      description: You must signup for RND on the website first
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tnList
+              properties:
+                tnList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tn:
+                        type: string
+                        description: phone number
+                        example: 2132133000
+                        format: phone
+                      dt:
+                        type: string
+                        description: consent date
+                        example: 2023-01-01
+                        format: date
+      responses:
+        '200':
+          description: Status message, success if no errors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tn:
+                      type: string
+                      description: phone number
+                      example: 2132133000
+                      format: phone
+                    status:
+                      type: string
+                      description: consent status one of "yes", "no", "no_data"
+                      example: "no"
+
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
   /api/reactivatecampaign:
     post:
       tags:
