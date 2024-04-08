@@ -461,6 +461,10 @@ paths:
                 - campaignId
                 - numbers
               properties:
+                returnDuplicateStatus:
+                  type: boolean
+                  description: add any numbers that it can, also return duplicate status
+                  example: false
                 force:
                   type: boolean
                   description: add any numbers that it can, default false
@@ -500,6 +504,46 @@ paths:
                   numbers:
                     type: array
                     description: Response add numbers
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                        number:
+                          type: string
+                          description: Number requested
+                          example: 2132130000
+                        error:
+                          type: string
+                          description: >-
+                            Optional error message, this means the number was
+                            not added
+                          example: Duplicate number
+                  active_duplicates:
+                    type: array
+                    description: Active duplicate numbers, only returned when returnDuplicateStatus
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: bb1cd156-98c1-4aa8-b979-fe6e1fe1cd0e
+                        number:
+                          type: string
+                          description: Number requested
+                          example: 2132130000
+                        error:
+                          type: string
+                          description: >-
+                            Optional error message, this means the number was
+                            not added
+                          example: Duplicate number
+                  inactive_duplicates:
+                    type: array
+                    description: Inactive duplicate numbers, only returned when returnDuplicateStatus
                     items:
                       type: object
                       properties:
